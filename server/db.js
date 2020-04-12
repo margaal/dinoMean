@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-var mongo_connection_string = process.env.MONGO_URI || "mongodb://localhost:27017/DinoDB";
+var mongo_connection_string = "mongodb://localhost:27017/DinoDB";
 
 mongoose.connect(mongo_connection_string, {useNewUrlParser:true, useUnifiedTopology: true, 
     useFindAndModify: false, useCreateIndex: true}, (error) => {

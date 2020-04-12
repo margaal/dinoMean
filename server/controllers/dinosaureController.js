@@ -1,7 +1,8 @@
 var mongoose = require('mongoose');
 var Dinosaure  = require('../models/dinosaure');
 var ObjectId = require('mongoose').Types.ObjectId;
-//const Dinosaure = mongoose.model('Dinosaure');
+const passport = require('passport');
+
 
 
 module.exports = {
@@ -130,6 +131,16 @@ module.exports = {
             }
         });
     },
-
+    login: (req, res, next) => {
+        
+        passport.authenticate('local', (error, dino, info) => {       
+            //console.log("AEE");    
+            if (error) return res.status(400).json(error);
+            
+            else if (dino) return res.status(200).json({ "token": dino.generateJwt() });
+            
+            else return res.status(404).json(info);
+        })(req, res);
+    }
 
 }

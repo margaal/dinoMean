@@ -1,7 +1,10 @@
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
-var moment = require('moment');
+const moment = require('moment');
+const jwt = require('jsonwebtoken');
 
+const JWT_SECRET = "SECRET@#2020";
+const JWT_EXP = "120m";
 
 var dinosaureSchema = new mongoose.Schema({
     name: {
@@ -29,6 +32,19 @@ var dinosaureSchema = new mongoose.Schema({
     friends: [String]
 });
 
+// Methods
+dinosaureSchema.methods.verifyPassword = function (password) {
+    return bcrypt.compareSync(password, this.password);
+};
+
+dinosaureSchema.methods.generateJwt = function () {
+    return jwt.sign({ _id: this._id},
+        JWT_SECRET,
+    {
+        expiresIn:JWT_EXP
+    });
+}
+
 dinosaureSchema.methods.toJSON = function() {
     var obj = this.toObject();
     delete obj.password;
@@ -36,6 +52,7 @@ dinosaureSchema.methods.toJSON = function() {
     return obj;
    }
 
+// Events
 dinosaureSchema.pre('save', function (next) {
     console.log("PreSave callback...");
     this.name = "Dino"+moment().format('DDssHHmm');
