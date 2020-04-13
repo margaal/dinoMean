@@ -3,9 +3,10 @@ const router = express.Router();
 const jwtHelper = require('./config/jwtHelper');
 const dinosaure = require('./controllers/dinosaureController');
 
-router.post('/login', dinosaure.login);
+router.post('/auth/login', dinosaure.login);
 router.get('/dino', jwtHelper.verifyJwtToken, dinosaure.index);
-router.post('/signup', dinosaure.register);
+router.get('/dino/friends/:id', jwtHelper.verifyJwtToken, dinosaure.myfreinds);
+router.post('/auth/signup', dinosaure.register);
 router.get('/dino/:id', jwtHelper.verifyJwtToken, dinosaure.show);
 router.put('/dino/:id', jwtHelper.verifyJwtToken, dinosaure.update);
 router.delete('/dino/:id', jwtHelper.verifyJwtToken, dinosaure.delete);

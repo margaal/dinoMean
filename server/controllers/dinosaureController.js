@@ -33,7 +33,25 @@ module.exports = {
                 res.send(JSON.stringify(error, undefined, 2));
             }
         });
-        
+
+    },
+    myfreinds: (req, res, next) => {
+        if(!ObjectId.isValid(req.params.id)){
+            return res.status(400).send("Id incorrect");
+        }
+
+        Dinosaure.findById(req.params.id, (error, doc) => {
+            if(!error){
+                Dinosaure.find({
+                    '_id': { $in: doc["friends"]}
+                }, (err, d) => {
+                    res.send(d);
+                });
+                
+            }else{
+                res.send(JSON.stringify(error, undefined, 2));
+            }
+        });
     },
     update: (req, res) =>{
         console.log("UPdate Dino Method...");
@@ -49,14 +67,14 @@ module.exports = {
             food: req.body.food,
             weight: req.body.weight,
         };
-        
+
         //upsert : true
         Dinosaure.findByIdAndUpdate(req.params.id, { $set: dino }, {new: true}, (error, doc) => {
             if(!error){
-                
+
                 res.send(doc);
             }else{
-                
+
                 res.send(JSON.stringify(error, undefined, 2));
             }
         });
@@ -132,13 +150,13 @@ module.exports = {
         });
     },
     login: (req, res, next) => {
-        
-        passport.authenticate('local', (error, dino, info) => {       
-            //console.log("AEE");    
+
+        passport.authenticate('local', (error, dino, info) => {
+            //console.log("AEE");
             if (error) return res.status(400).json(error);
-            
+
             else if (dino) return res.status(200).json({ "token": dino.generateJwt() });
-            
+
             else return res.status(404).json(info);
         })(req, res);
     }

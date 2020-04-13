@@ -15,13 +15,26 @@ var dinosaureSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
-    presentation: String,
-    family: String,
-    color: String,
-    food: String,
+    presentation: {
+        type: String,
+        default: ""
+    },
+    family: {
+        type: String,
+        default: ""
+    },
+    color: {
+        type: String,
+        default: ""
+    },
+    food: {
+        type: String,
+        default: ""
+    },
     weight: {
         type: Number,
-        min: [10, 'Oups! Un bébé Dino, n\'a pas droit au réseau.']
+        min: [10, 'Oups! Un bébé Dino, n\'a pas droit au réseau.'],
+        default: 10
     },
     password: {
         type: String,

@@ -1,0 +1,45 @@
+<main role="main">
+    <section class="jumbotron text-center">
+        <div class="container">
+            <h1 class="jumbotron-heading">{{ dino.name }}</h1>
+            <p class="lead text-muted">
+                {{ dino.presentation }}
+            </p>
+            <p>
+                <a href="#" class="btn btn-primary my-4 mx-2">Liste des Dinos</a>
+                <a href="#" class="btn btn-success my-4">Modifier profile</a>
+                <a href="#" class="btn btn-warning my-4 mx-2">Se déconnecter</a>
+            </p>
+            <div class="row">
+                <div class="col-md-4">
+                    <strong class="h5">Famille</strong>
+                </div>
+                <div class="col-md-4">
+                    <span>{{ dino.family }}</span>
+                </div>
+                <div class="col-md-4">
+                    <strong class="h3">Couleur</strong>
+                </div>
+                <div class="col-md-4">
+                    <span class="h3"></span>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="album py-5 bg-light">
+        <div class="container">
+
+            <div class="row">
+                <div class="card col-md-4">
+                    <div class="card-body">
+                        <h5 class="card-title">DinoName</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Family</h6>
+                        <p class="card-text">Description substring...</p>
+                        <a href="#" class="btn btn-primary">Ajouter amis</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</main>
