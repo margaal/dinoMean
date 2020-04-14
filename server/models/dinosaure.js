@@ -12,8 +12,8 @@ var dinosaureSchema = new mongoose.Schema({
         unique: true,
     },
     dob: {
-        type: Date,
-        default: Date.now
+        type: Number,
+        default: 1000
     },
     presentation: {
         type: String,

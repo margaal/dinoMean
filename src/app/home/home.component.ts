@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DinoService } from '../shared/dino.service';
 
 @Component({
   selector: 'app-home',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  idDino: string;
+
+  constructor(public dinoService: DinoService) { }
 
   ngOnInit(): void {
+    this.idDino = localStorage.getItem(DinoService.ID_KEY);
   }
 
 }

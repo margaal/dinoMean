@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -18,7 +18,16 @@ import { EditDinoComponent } from './dino/edit-dino/edit-dino.component';
 import { ListDinoComponent } from './dino/list-dino/list-dino.component';
 import { authInterceptorProviders } from './jwt-interceptor';
 import { JwtModule } from '@auth0/angular-jwt';
+import { ErrorPageComponent } from './shared/error-page/error-page.component';
+import { DinoAppbarComponent } from './dino-appbar/dino-appbar.component';
+import { registerLocaleData } from '@angular/common';
+import localeFr from '@angular/common/locales/fr';
+import localeFrExtra from '@angular/common/locales/extra/fr';
+import { ConfirmationDialogComponent } from './shared/confirmation-dialog/confirmation-dialog.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatButtonModule} from '@angular/material/button';
 
+registerLocaleData(localeFr, 'fr', localeFrExtra);
 
 @NgModule({
   declarations: [
@@ -29,33 +38,29 @@ import { JwtModule } from '@auth0/angular-jwt';
     SignInComponent,
     ProfilPageComponent,
     EditDinoComponent,
-    ListDinoComponent
+    ListDinoComponent,
+    ErrorPageComponent,
+    DinoAppbarComponent,
+    ConfirmationDialogComponent
   ],
   imports: [
-    // JwtModule.forRoot({
-    //   config: {
-    //     tokenGetter: () => {
-    //       return localStorage.getItem(DinoService.TOKEN_KEY);
-    //     },
-    //     whitelistedDomains: [/^null$/],
-    //     blacklistedRoutes: [environment.apiBaseUrl+"/auth/"]
-    //   }
-    // }),
     JwtModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    MatDialogModule,
+    MatButtonModule,
     FormsModule,
     HttpClientModule,
     RouterModule.forRoot(appRoutes),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    
   ],
   providers: [
-    authInterceptorProviders
-    // {
-    //   provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true
-    // }
+    authInterceptorProviders,
+    {provide: LOCALE_ID, useValue: 'fr' }
   ],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }

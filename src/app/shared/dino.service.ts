@@ -12,12 +12,17 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 export class DinoService {
 
   static TOKEN_KEY = "token";
+  static ID_KEY = "id";
   static AUTH_BASE_URI = "/auth";
   static DINO_BASE_URI = "/dino";
 
   //selectedDino: Dinosaure = new Dinosaure();
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    if(this.loggedIn && this.isTokenExpired){
+
+    }
+   }
 
   // 
   public getDinos(){
@@ -25,7 +30,7 @@ export class DinoService {
   }
 
   public getDinosFriends(id: string){
-    return this.http.get<DinoResponse[]>(`${environment.apiBaseUrl}${DinoService.DINO_BASE_URI}/freinds/${id}`); 
+    return this.http.get<DinoResponse[]>(`${environment.apiBaseUrl}${DinoService.DINO_BASE_URI}/friends/${id}`); 
   }
 
   public getDinoById(id: string){
@@ -34,6 +39,14 @@ export class DinoService {
 
   public updateDino(dino: Dinosaure){
     return this.http.put<DinoResponse>(`${environment.apiBaseUrl}${DinoService.DINO_BASE_URI}/${dino.id}`, dino);
+  }
+
+  public addFriendDino(current_id: string, friend_id: string){
+    return this.http.put<DinoResponse>(`${environment.apiBaseUrl}${DinoService.DINO_BASE_URI}/addfriend/${current_id}`, {"friend_id": friend_id});
+  }
+
+  public removeFriendDino(current_id: string, friend_id: string){
+    return this.http.put<DinoResponse>(`${environment.apiBaseUrl}${DinoService.DINO_BASE_URI}/removefriend/${current_id}`, {"friend_id": friend_id});
   }
 
   public deleteDino(id: string){
@@ -51,20 +64,24 @@ export class DinoService {
     }));
   }
 
-  public login(name:string, password:string) {
+  public login(name:string, password:string) : number{
     
-    return this.http.post<{token:string}>(`${environment.apiBaseUrl}${DinoService.AUTH_BASE_URI}/login`, {name, password}).subscribe(
+    this.http.post<{token:string, id:string}>(`${environment.apiBaseUrl}${DinoService.AUTH_BASE_URI}/login`, {name, password}).subscribe(
       res => {
         localStorage.setItem(DinoService.TOKEN_KEY, res.token);
+        localStorage.setItem(DinoService.ID_KEY, res.id);
         
       },
       err => {
         console.log(err);
+        return err.status;
       });
+      return 0;
   }
 
   public logout() {
     localStorage.removeItem(DinoService.TOKEN_KEY);
+    localStorage.removeItem(DinoService.ID_KEY);
   }
 
 
@@ -73,7 +90,7 @@ export class DinoService {
     return localStorage.getItem(DinoService.TOKEN_KEY) !==  null;
   }
 
-  public get verifyTokenAvailability() : boolean{
+  public get isTokenExpired() : boolean{
     const helperJwt = new JwtHelperService();
     return helperJwt.isTokenExpired(localStorage.getItem(DinoService.TOKEN_KEY));
   }

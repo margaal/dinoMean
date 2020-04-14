@@ -45,6 +45,7 @@ module.exports = {
                 Dinosaure.find({
                     '_id': { $in: doc["friends"]}
                 }, (err, d) => {
+                    console.log(err);
                     res.send(d);
                 });
                 
@@ -155,7 +156,7 @@ module.exports = {
             //console.log("AEE");
             if (error) return res.status(400).json(error);
 
-            else if (dino) return res.status(200).json({ "token": dino.generateJwt() });
+            else if (dino) return res.status(200).json({ "token": dino.generateJwt(), "id": dino._id });
 
             else return res.status(404).json(info);
         })(req, res);

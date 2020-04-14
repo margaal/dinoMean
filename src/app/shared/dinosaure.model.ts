@@ -7,7 +7,8 @@ export class Dinosaure {
     presentation: string;
     food: string;
     weight: number;
-    dob: Date;
+    dob: number;
+    isCurrentDinoFriend:boolean;
 }
 
 export class DinoLoginViewModel{
@@ -31,7 +32,7 @@ export class DinoResponse{
     presentation: string;
     food: string;
     weight: number;
-    dob: Date;
+    dob: number;
 
     static convertToDinosaureModel(dinoResponse) :  Dinosaure{
         var dino = new Dinosaure();

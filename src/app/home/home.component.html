@@ -10,10 +10,18 @@
       <main role="main" class="inner cover">
         <h1 class="cover-heading">Bienvenue sur Dino.</h1>
         <p class="lead">Petite application basée sur MEAN stack. Cette application web vous permet de regrouper les dinosaures. Bref, c'est le réseau social des Dinos:). Sans plus tarder, inscrit toi et explore le monde des Dinos. Si tu possèdes déjà un compte, connecte toi simplement Dino.</p>
-        <p class="lead">
-          <a [routerLink]="'/signin'" class="btn btn-lg btn-secondary mx-2">Connexion</a>
-          <a [routerLink]="'/signup'" class="btn btn-lg btn-success">Inscription</a>
+        <p class="lead" *ngIf="dinoService.loggedIn && !dinoService.isTokenExpired; else mustAuth">
+        
+            <a [routerLink]="'/profile/'+idDino" class="btn btn-lg btn-primary mx-2">Profile</a>
         </p>
+
+        <ng-template #mustAuth>
+            
+            <a [routerLink]="'/signin'" class="btn btn-lg btn-secondary mx-2">Connexion</a>
+            <a [routerLink]="'/signup'" class="btn btn-lg btn-success">Inscription</a>
+            
+        </ng-template>
+        
       </main>
 
       <footer class="mastfoot mt-auto">

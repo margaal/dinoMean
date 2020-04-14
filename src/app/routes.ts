@@ -5,6 +5,9 @@ import { HomeComponent } from './home/home.component';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { ProfilPageComponent } from './dino/profil-page/profil-page.component';
 import { AuthGuardService } from './shared/auth-guard.service';
+import { ErrorPageComponent } from './shared/error-page/error-page.component';
+import { ListDinoComponent } from './dino/list-dino/list-dino.component';
+import { EditDinoComponent } from './dino/edit-dino/edit-dino.component';
 
 export const appRoutes: Routes = [
     {
@@ -18,7 +21,18 @@ export const appRoutes: Routes = [
         path: 'home', component: HomeComponent,
     },
     {
+        path: 'error/:code', component: ErrorPageComponent,
+    },
+    {
         path: 'profile/:id', component: ProfilPageComponent,
+        canActivate: [AuthGuardService]
+    },
+    {
+        path: 'list', component: ListDinoComponent,
+        canActivate: [AuthGuardService]
+    },
+    {
+        path: 'edit', component: EditDinoComponent,
         canActivate: [AuthGuardService]
     },
     {

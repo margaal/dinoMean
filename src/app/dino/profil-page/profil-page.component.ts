@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DinoService } from 'src/app/shared/dino.service';
 import { Dinosaure, DinoResponse } from 'src/app/shared/dinosaure.model';
 
@@ -11,22 +11,29 @@ import { Dinosaure, DinoResponse } from 'src/app/shared/dinosaure.model';
 export class ProfilPageComponent implements OnInit {
 
   currentDinoId: string;
-  dino: Dinosaure;
+  //dino: Dinosaure;
 
-  constructor(private route: ActivatedRoute, private dinoService: DinoService) { }
+  constructor(private route: ActivatedRoute, private dinoService: DinoService, private router: Router) { }
 
   ngOnInit(): void {
     this.currentDinoId = this.route.snapshot.paramMap.get('id');
-    //console.log(localStorage.getItem(DinoService.TOKEN_KEY));
-    this.dinoService.getDinoById(this.currentDinoId).subscribe(
-      res => {
-        this.dino = DinoResponse.convertToDinosaureModel(res);
-      },
-      error =>{
-        console.log(error);
+    
+    
+    // this.dinoService.getDinoById(this.currentDinoId).subscribe(
+    //   res => {
+    //     this.dino = DinoResponse.convertToDinosaureModel(res);
+    //   },
+    //   error =>{
         
-      }
-    );
+    //     if(error.status===403){
+    //       this.router.navigate(['signin']);
+    //     }else{
+    //       this.router.navigate(['error/'+error.status]);
+    //       console.log(error);
+    //     }
+        
+    //   }
+    // );
   }
 
 }
