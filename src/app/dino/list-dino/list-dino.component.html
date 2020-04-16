@@ -1,41 +1,45 @@
 <main role="main">
-    <app-dino-appbar [idDino]="id" [isProfile]=isProfile>
-    </app-dino-appbar>
-    <h3 *ngIf="!isProfile">Liste des Dinos</h3>
-    <h3 *ngIf="isProfile">Mes amis Dinos</h3>
-    <div class="album py-5 bg-light">
-        <div class="container" *ngIf="dinos.length>0; else NoFriends">
-        
-            <div class="row">
-                <div class="col-md-4" *ngFor="let d of dinos">
-                    <div class="card my-3" >
-                        <div class="card-body">
-                            <h5 class="card-title"><strong>{{ d.name }}</strong>(<em *ngIf="d.dob">{{ year-d.dob }} ans</em>)</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">{{ d.family }}</h6>
-                            <p class="card-text">{{ d.presentation }}</p>
-                            <span class="text-mutted" *ngIf="d.isCurrentDinoFriend && !isProfile">Déjà ami</span>
-                            <a (click)="onRemoveFriend(d.name,d.id)" *ngIf="d.isCurrentDinoFriend && isProfile" class="btn btn-danger">Retirer</a>
-                            
-                            <a (click)="onAddFriend(d.name,d.id)" *ngIf="!d.isCurrentDinoFriend" class="btn btn-primary">Ajouter</a>
-                            
-                            
-                        </div>
-                    </div>
-                </div>
-                
+  <app-dino-appbar [idDino]="id" [isProfile]="isProfile"> </app-dino-appbar>
+  <h3 *ngIf="!isProfile">Liste des Dinos</h3>
+  <h3 *ngIf="isProfile">Mes amis Dinos</h3>
+  <div class="album py-5 bg-light">
+    <div class="container" *ngIf="dinos.length > 0; else NoFriends">
+      <div class="row">
+        <div class="col-md-4" *ngFor="let d of dinos">
+          <div class="card my-3">
+            <div class="card-body">
+              <h5 class="card-title">
+                <strong>{{ d.name }}</strong
+                >(<em *ngIf="d.dob">{{ year - d.dob }} ans</em>)
+              </h5>
+              <h6 class="card-subtitle mb-2 text-muted">{{ d.family }}</h6>
+              <p class="card-text">{{ d.presentation }}</p>
 
+              <span
+                (click)="onRemoveFriend(d.name, d.id)"
+                *ngIf="d.isCurrentDinoFriend"
+                class="btn btn-danger"
+                >Retirer</span
+              >
+
+              <span
+                (click)="onAddFriend(d.name, d.id)"
+                *ngIf="!d.isCurrentDinoFriend"
+                class="btn btn-success"
+                >Ajouter</span
+              >
             </div>
-        
-    </div>
-
-    
-    </div>
-    <ng-template #NoFriends>
-        <div class="container text-center">
-            <h3>Pas d'amis Dino</h3>
-            <small class="text-muted">Allez sur la page de la liste d'amis pour vous faire des amis</small>
+          </div>
         </div>
-    </ng-template>
+      </div>
+    </div>
+  </div>
+  <ng-template #NoFriends>
+    <div class="container text-center">
+      <h3>Pas d'amis Dino</h3>
+      <small class="text-muted"
+        >Allez sur la page de la liste d'amis pour vous faire des amis</small
+      >
+    </div>
+  </ng-template>
 </main>
-
-    

@@ -1,33 +1,47 @@
- <div id="dino-home">
+<div id="da-dino-home">
+  <div class="da-cover-container d-flex h-100 p-3 mx-auto flex-column">
+    <header class="da-masthead mb-auto">
+      <div class="inner">
+        <h3 class="da-masthead-brand"><a [routerLink]="'/home'">DinoAng</a></h3>
+      </div>
+    </header>
 
-    <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
-      <header class="masthead mb-auto">
-        <div class="inner">
-          <h3 class="masthead-brand"><a [routerLink]="'/home'">Dino</a></h3>
-        </div>
-      </header>
+    <main role="main" class="inner da-cover">
+      <h1 class="da-cover-heading">Bienvenue sur DinoAng.</h1>
+      <p class="lead">
+        Petite application basée sur MEAN stack. Cette application web vous
+        permet de regrouper les dinosaures. Bref, c'est le réseau social des
+        Dinos:). Sans plus tarder, inscrit toi et explore le monde des Dinos. Si
+        tu possèdes déjà un compte, connecte toi simplement Dino.
+      </p>
+      <p
+        class="lead"
+        *ngIf="
+          dinoService.loggedIn && !dinoService.isTokenExpired;
+          else mustAuth
+        "
+      >
+        <a
+          [routerLink]="'/profile/' + idDino"
+          class="btn btn-lg btn-primary mx-2"
+          >Profile</a
+        >
+      </p>
 
-      <main role="main" class="inner cover">
-        <h1 class="cover-heading">Bienvenue sur Dino.</h1>
-        <p class="lead">Petite application basée sur MEAN stack. Cette application web vous permet de regrouper les dinosaures. Bref, c'est le réseau social des Dinos:). Sans plus tarder, inscrit toi et explore le monde des Dinos. Si tu possèdes déjà un compte, connecte toi simplement Dino.</p>
-        <p class="lead" *ngIf="dinoService.loggedIn && !dinoService.isTokenExpired; else mustAuth">
-        
-            <a [routerLink]="'/profile/'+idDino" class="btn btn-lg btn-primary mx-2">Profile</a>
-        </p>
+      <ng-template #mustAuth>
+        <a [routerLink]="'/signin'" class="btn btn-lg da-btn-secondary mx-2"
+          >Connexion</a
+        >
+        <a [routerLink]="'/signup'" class="btn btn-lg btn-success"
+          >Inscription</a
+        >
+      </ng-template>
+    </main>
 
-        <ng-template #mustAuth>
-            
-            <a [routerLink]="'/signin'" class="btn btn-lg btn-secondary mx-2">Connexion</a>
-            <a [routerLink]="'/signup'" class="btn btn-lg btn-success">Inscription</a>
-            
-        </ng-template>
-        
-      </main>
-
-      <footer class="mastfoot mt-auto">
-        <div class="inner">
-          <p>Dino, by <a href="https://github.com/margaal">Margaal</a>.</p>
-        </div>
-      </footer>
-    </div>
+    <footer class="da-mastfoot mt-auto">
+      <div class="inner">
+        <p>DinoAng, by <a href="https://github.com/margaal">Margaal</a>.</p>
+      </div>
+    </footer>
+  </div>
 </div>

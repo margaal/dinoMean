@@ -1,61 +1,120 @@
 <!-- main app container -->
 
 <div class="container text-center">
+  <h1 class="h3 my-5 font-weight-normal">Formulaire d'inscription</h1>
+  <div *ngIf="serverError">
+    <div class="alert alert-danger" role="alert">
+      {{ serverError }}
+    </div>
+  </div>
+  <div *ngIf="successMsg">
+    <div class="alert alert-success" role="alert">
+      {{ successMsg }}
+    </div>
+  </div>
 
-        
-    <h1 class="h3 my-5 font-weight-normal">Formulaire d'inscription</h1>
-    <div *ngIf="serverError">
-      <div class="alert alert-danger" role="alert">
-        {{ serverError }}
+  <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="family">Famille</label>
+        <input
+          type="text"
+          formControlName="family"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f.family.errors }"
+          placeholder="Famille..."
+        />
+        <div *ngIf="submitted && f.family.errors" class="invalid-feedback">
+          <div *ngIf="f.family.errors.required">
+            Veuillez préciser une famille de dinosaure
+          </div>
+        </div>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="color">Couleur</label>
+        <input
+          type="text"
+          formControlName="color"
+          class="form-control"
+          placeholder="Couleur..."
+        />
       </div>
     </div>
-    <div *ngIf="successMsg">
-      <div class="alert alert-success" role="alert">
-        {{ successMsg }}
+
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="food">Nourriture</label>
+        <input
+          type="text"
+          formControlName="food"
+          class="form-control"
+          placeholder="Nourriture..."
+        />
+      </div>
+      <div class="form-group col-md-6">
+        <label for="weight">Poids</label>
+        <input
+          type="number"
+          formControlName="weight"
+          class="form-control"
+          placeholder="Poids..."
+        />
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="dob">Annee Naissance</label>
+        <input
+          type="text"
+          formControlName="dob"
+          class="form-control"
+          placeholder="Année Naissance..."
+        />
+        <div *ngIf="submitted && f.dob.errors" class="invalid-feedback">
+          <div *ngIf="f.dob.errors.maxlength">
+            Le champ Année de naissance doit pas dépasser 4 chiffres
+          </div>
+          <div *ngIf="f.dob.errors.pattern">
+            Le champ Année de naissance ne doit être composé que de 4 chiffres
+          </div>
+        </div>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="presentation">Présentation</label>
+        <textarea
+          formControlName="presentation"
+          placeholder="Petite déscription..."
+          class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f.presentation.errors }"
+          rows="3"
+        ></textarea>
+        <div
+          *ngIf="submitted && f.presentation.errors"
+          class="invalid-feedback"
+        >
+          <div *ngIf="f.presentation.errors.required">
+            Veuillez préciser une description
+          </div>
+          <div *ngIf="f.presentation.errors.minlength">
+            La description doit être composé d'au moins 5 caractères
+          </div>
+        </div>
       </div>
     </div>
 
-  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-    <div class="form-row">
-        <div class="form-group col-md-6">
-            <label for="family" class="sr-only">Famille</label>
-            <input type="text" formControlName="family" [value]="p.family" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.family.errors }" placeholder="Famille..."/>
-            <div *ngIf="submitted && f.family.errors" class="invalid-feedback">
-            <div *ngIf="f.family.errors.required">Veuillez préciser une famille de dinosaure</div>
-            </div>
-        </div>
-        <div class="form-group col-md-6">
-            <label for="color" class="sr-only">Couleur</label>
-            <input type="text" formControlName="color" class="form-control" placeholder="Couleur..."/>
-        </div>
-    </div>
-    <div class="form-row">
-        <div class="form-group col-md-6">
-            <label for="food" class="sr-only">Nourriture</label>
-            <input type="text" formControlName="food" class="form-control" placeholder="Nourriture..."/>
-        </div>
-        <div class="form-group col-md-6">
-            <label for="weight" class="sr-only">Poids</label>
-            <input type="number" formControlName="weight" class="form-control" placeholder="Poids..."/>
-        </div>
-    </div>
-    <div class="form-row">
-        <div class="form-group col-md-6">
-            <label for="dob" class="sr-only">Annee Naissance</label>
-            <input type="text" formControlName="dob" class="form-control" pattern="^[0-9]*$" placeholder="Année Naissance..."/>
-        </div>
-        <div class="form-group col-md-6">
-            <label for="presentation" class="sr-only">Présentation</label>
-            <textarea formControlName="presentation" placeholder="Petite déscription..." class="form-control" [ngClass]="{ 'is-invalid': submitted && f.presentation.errors }" rows="3"></textarea>
-            <div *ngIf="submitted && f.presentation.errors" class="invalid-feedback">
-                <div *ngIf="f.presentation.errors.required">Veuillez préciser une description</div>
-                <div *ngIf="f.presentation.errors.minlength">La description doit être composé d'au moins 5 caractères</div>
-            </div>
-        </div>
-    </div>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">
+      Valider
+    </button>
+    <button
+      class="btn btn-lg btn-secondary btn-block"
+      type="reset"
+      (click)="onReset()"
+    >
+      Annuler
+    </button>
 
-    <button class="btn btn-lg btn-primary btn-block" type="submit">Valider</button>
-    <button class="btn btn-lg btn-secondary btn-block" type="reset" (click)="onReset()">Annuler</button>
-    <a class="btn btn-lg btn-success btn-block" [routerLink]="'/home'" >Acceuil</a>
+    <div class="my-3" id="da-bottom-links">
+      <a [routerLink]="'/profile/' + current_id">Profile</a>
+    </div>
   </form>
 </div>

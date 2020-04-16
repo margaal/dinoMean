@@ -1,7 +1,7 @@
 <!-- main app container -->
 
-<div id="signup">
-  <form [formGroup]="registerForm" class="form-signin" (ngSubmit)="onSubmit()">
+<div id="da-form-center">
+  <form [formGroup]="loginForm" class="form-signin" (ngSubmit)="onSubmit()">
     <h1 class="h3 mb-3 font-weight-normal">Formulaire de connexion</h1>
     <div *ngIf="serverError">
       <div class="alert alert-danger" role="alert">
@@ -9,20 +9,46 @@
       </div>
     </div>
     <label for="name" class="sr-only">Identifiant</label>
-    <input type="text" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.name.errors }" placeholder="Identifiant..."/>
+    <input
+      type="text"
+      formControlName="name"
+      class="form-control"
+      [ngClass]="{ 'is-invalid': submitted && f.name.errors }"
+      placeholder="Identifiant..."
+    />
     <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
-      <div *ngIf="f.name.errors.required">Veuillez préciser l'identifiant de dinosaure</div>
+      <div *ngIf="f.name.errors.required">
+        Veuillez préciser l'identifiant de dinosaure
+      </div>
     </div>
-    
-    <label for="password" class="sr-only">Mot de passe</label>
-    <input type="password" formControlName="password" placeholder="Mot de passe..." class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
-    <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-        <div *ngIf="f.password.errors.required">Veuillez préciser un mot de passe</div>
-    </div>
-    
 
-    <button class="btn btn-lg btn-primary btn-block" type="submit">Valider</button>
-    <button class="btn btn-lg btn-secondary btn-block" type="reset" (click)="onReset()">Annuler</button>
-    <a class="btn btn-lg btn-success btn-block" [routerLink]="'/home'" >Acceuil</a>
+    <label for="password" class="sr-only">Mot de passe</label>
+    <input
+      type="password"
+      formControlName="password"
+      placeholder="Mot de passe..."
+      class="form-control"
+      [ngClass]="{ 'is-invalid': submitted && f.password.errors }"
+    />
+    <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+      <div *ngIf="f.password.errors.required">
+        Veuillez préciser un mot de passe
+      </div>
+    </div>
+
+    <button class="btn btn-lg btn-primary btn-block" type="submit">
+      Valider
+    </button>
+    <button
+      class="btn btn-lg btn-secondary btn-block"
+      type="reset"
+      (click)="onReset()"
+    >
+      Annuler
+    </button>
+    <div class="my-3" id="da-bottom-links">
+      <a [routerLink]="'/home'">Acceuil</a> |
+      <a [routerLink]="'/signup'">Inscription</a>
+    </div>
   </form>
 </div>

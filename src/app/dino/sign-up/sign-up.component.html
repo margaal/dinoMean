@@ -1,44 +1,102 @@
 <!-- main app container -->
 
-<div id="signup">
-  <form [formGroup]="registerForm" class="form-signin" (ngSubmit)="onSubmit()">
+<div id="da-signup">
+  <form
+    [formGroup]="registerForm"
+    class="da-form-signin"
+    (ngSubmit)="onSubmit()"
+  >
     <h1 class="h3 mb-3 font-weight-normal">Formulaire d'inscription</h1>
     <div *ngIf="serverError">
       <div class="alert alert-danger" role="alert">
         {{ serverError }}
       </div>
     </div>
-    <div *ngIf="successMsg">
-      <div class="alert alert-success" role="alert">
-        {{ successMsg }}
-      </div>
+    <div *ngIf="successMsg" id="da-success-msg">
+      <div
+        class="alert alert-success"
+        role="alert"
+        [innerHtml]="successMsg"
+      ></div>
     </div>
     <label for="family" class="sr-only">Famille</label>
-    <input type="text" formControlName="family" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.family.errors }" placeholder="Famille..."/>
+    <input
+      type="text"
+      formControlName="family"
+      class="form-control"
+      [ngClass]="{ 'is-invalid': submitted && f.family.errors }"
+      placeholder="Famille..."
+    />
     <div *ngIf="submitted && f.family.errors" class="invalid-feedback">
-      <div *ngIf="f.family.errors.required">Veuillez préciser une famille de dinosaure</div>
+      <div *ngIf="f.family.errors.required">
+        Veuillez préciser une famille de dinosaure
+      </div>
     </div>
     <label for="presentation" class="sr-only">Présentation</label>
-    <textarea formControlName="presentation" placeholder="Petite déscription..." class="form-control" [ngClass]="{ 'is-invalid': submitted && f.presentation.errors }" rows="3"></textarea>
+    <textarea
+      formControlName="presentation"
+      placeholder="Petite déscription..."
+      class="form-control"
+      [ngClass]="{ 'is-invalid': submitted && f.presentation.errors }"
+      rows="3"
+    ></textarea>
     <div *ngIf="submitted && f.presentation.errors" class="invalid-feedback">
-        <div *ngIf="f.presentation.errors.required">Veuillez préciser une description</div>
-        <div *ngIf="f.presentation.errors.minlength">La description doit être composé d'au moins 5 caractères</div>
+      <div *ngIf="f.presentation.errors.required">
+        Veuillez préciser une description
+      </div>
+      <div *ngIf="f.presentation.errors.minlength">
+        La description doit être composé d'au moins 5 caractères
+      </div>
     </div>
     <label for="password" class="sr-only">Mot de passe</label>
-    <input type="password" formControlName="password" placeholder="Mot de passe..." class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+    <input
+      type="password"
+      formControlName="password"
+      placeholder="Mot de passe..."
+      class="form-control"
+      [ngClass]="{ 'is-invalid': submitted && f.password.errors }"
+    />
     <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-        <div *ngIf="f.password.errors.required">Veuillez préciser un mot de passe</div>
-        <div *ngIf="f.password.errors.minlength">Le mot de passe doit être composé d'au moins 4 caractères</div>
+      <div *ngIf="f.password.errors.required">
+        Veuillez préciser un mot de passe
+      </div>
+      <div *ngIf="f.password.errors.minlength">
+        Le mot de passe doit être composé d'au moins 4 caractères
+      </div>
     </div>
-    <label for="confirmPassword" class="sr-only">Confirmer le mot de passe</label>
-    <input type="password" formControlName="confirmPassword" placeholder="Confirmer Mot de passe..." class="form-control" [ngClass]="{ 'is-invalid': submitted && f.confirmPassword.errors }" />
+    <label for="confirmPassword" class="sr-only"
+      >Confirmer le mot de passe</label
+    >
+    <input
+      type="password"
+      formControlName="confirmPassword"
+      placeholder="Confirmer Mot de passe..."
+      class="form-control"
+      [ngClass]="{ 'is-invalid': submitted && f.confirmPassword.errors }"
+    />
     <div *ngIf="submitted && f.confirmPassword.errors" class="invalid-feedback">
-        <div *ngIf="f.confirmPassword.errors.required">Veuillez préciser un mot de passe</div>
-        <div *ngIf="f.confirmPassword.errors.mustMatch">Les mots de passe ne concordent pas</div>
+      <div *ngIf="f.confirmPassword.errors.required">
+        Veuillez préciser un mot de passe
+      </div>
+      <div *ngIf="f.confirmPassword.errors.mustMatch">
+        Les mots de passe ne concordent pas
+      </div>
     </div>
 
-    <button class="btn btn-lg btn-primary btn-block" type="submit">Valider</button>
-    <button class="btn btn-lg btn-secondary btn-block" type="reset" (click)="onReset()">Annuler</button>
-    <a class="btn btn-lg btn-success btn-block" [routerLink]="'/home'" >Acceuil</a>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">
+      Valider
+    </button>
+    <button
+      class="btn btn-lg btn-secondary btn-block"
+      type="reset"
+      (click)="onReset()"
+    >
+      Annuler
+    </button>
+
+    <div class="my-3" id="da-bottom-links">
+      <a [routerLink]="'/home'">Acceuil</a> |
+      <a [routerLink]="'/signin'">Connectez-vous</a>
+    </div>
   </form>
 </div>
