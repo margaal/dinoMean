@@ -1,10 +1,6 @@
 # DinoAng
 
-This project is my first project based on MEAN stack
-
-## Introduction
-
-DinoAng is an address book for dinosaur.
+DinoAng is an address book for dinosaur. This is my first project based on MEAN stack
 
 ## Run project
 
