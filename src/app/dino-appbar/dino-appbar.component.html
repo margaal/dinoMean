@@ -1,42 +1,60 @@
-    <section class="jumbotron text-center">
-        <div class="container">
-            <h1 class="jumbotron-heading">{{ dino?.name }}</h1>
-            <p class="lead text-muted">
-                {{ dino?.presentation }}
-            </p>
-            <p>
-                <a [routerLink]="'/profile/'+dino.id" *ngIf="dino && !isProfile" class="btn btn-info my-4 mx-2">Profile</a>
-                <a [routerLink]="'/list'" *ngIf="isProfile" class="btn btn-primary my-4 mx-2">Liste des Dinos</a>
-                <a [routerLink]="'/edit'" class="btn btn-success my-4">Modifier profile</a>
-                <span (click)="onLogout()" class="btn btn-danger my-4 mx-2">Se déconnecter</span>
-            </p>
-            <div class="table-responsive">
-                <table class="table" *ngIf="dino">
-                    <tbody>
-                        <tr>
-                            <th scope="row">Famille</th>
-                            <td>{{ dino?.family }}</td>
-                            <th scope="row">Couleur</th>
-                            <td *ngIf="dino.color; else nonRenseigne">{{ dino.color }}</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Poids</th>
-                            <td *ngIf="dino.weight; else nonRenseigne">{{ dino.weight }}</td>
-                            <th scope="row">Nourriture</th>
-                            <td *ngIf="dino.food; else nonRenseigne">{{ dino.food }}</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Age</th>
-                            <td *ngIf="dino.dob; else nonRenseigne">{{ year-dino.dob }} ans</td>
-                            <th scope="row">Nombre amis</th>
-                            <td>{{ dino?.friends?.length || 0 }}</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <ng-template #nonRenseigne>
-                    <td><i>Non Renseigné</i></td>
-                </ng-template>
-            </div>
-            
-        </div>
-    </section>
+<section class="jumbotron text-center">
+  <div class="container">
+    <h1 class="jumbotron-heading">{{ dino?.name }}</h1>
+    <p class="lead text-muted" id="da-description">
+      {{ dino?.presentation }}
+    </p>
+    <p>
+      <a
+        [routerLink]="'/profile/' + dino.id"
+        *ngIf="dino && !isProfile"
+        class="btn btn-info my-4 mx-2"
+        >Profile</a
+      >
+      <a
+        [routerLink]="'/list'"
+        *ngIf="isProfile"
+        class="btn btn-primary my-4 mx-2"
+        >Liste des Dinos</a
+      >
+      <a [routerLink]="'/edit'" class="btn btn-success my-4"
+        >Modifier profile</a
+      >
+      <span (click)="onLogout()" class="btn btn-danger my-4 mx-2"
+        >Se déconnecter</span
+      >
+    </p>
+    <div class="table-responsive">
+      <table class="table" *ngIf="dino">
+        <tbody>
+          <tr>
+            <th scope="row">Famille</th>
+            <td>{{ dino?.family }}</td>
+            <th scope="row">Couleur</th>
+            <td
+              *ngIf="dino.color; else nonRenseigne"
+              style="background: {{ dino.color }}"
+            ></td>
+          </tr>
+          <tr>
+            <th scope="row">Poids</th>
+            <td *ngIf="dino.weight; else nonRenseigne">{{ dino.weight }}</td>
+            <th scope="row">Nourriture</th>
+            <td *ngIf="dino.food; else nonRenseigne">{{ dino.food }}</td>
+          </tr>
+          <tr>
+            <th scope="row">Age</th>
+            <td *ngIf="dino.dob; else nonRenseigne">
+              {{ year - dino.dob }} ans
+            </td>
+            <th scope="row">Nombre amis</th>
+            <td>{{ dino?.friends?.length || 0 }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <ng-template #nonRenseigne>
+        <td><i>Non Renseigné</i></td>
+      </ng-template>
+    </div>
+  </div>
+</section>

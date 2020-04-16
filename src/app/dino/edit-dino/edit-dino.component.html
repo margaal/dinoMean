@@ -32,12 +32,13 @@
       </div>
       <div class="form-group col-md-6">
         <label for="color">Couleur</label>
-        <input
-          type="text"
-          formControlName="color"
-          class="form-control"
-          placeholder="Couleur..."
-        />
+        <select formControlName="color" class="form-control">
+          <option
+            *ngFor="let c of colorList; let i = index" [attr.data-index]="i"
+            [value]="c"
+            style="background: {{ c }}"
+            >{{ i==0?'Pas de couleur':'Couleur '+i }}</option>
+        </select>
       </div>
     </div>
 

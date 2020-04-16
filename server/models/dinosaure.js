@@ -13,7 +13,6 @@ var dinosaureSchema = new mongoose.Schema({
   },
   dob: {
     type: Number,
-    default: 1000,
   },
   presentation: {
     type: String,
@@ -34,7 +33,6 @@ var dinosaureSchema = new mongoose.Schema({
   weight: {
     type: Number,
     min: [10, "Oups! Un bébé Dino, n'a pas droit au réseau."],
-    default: 10,
   },
   password: {
     type: String,

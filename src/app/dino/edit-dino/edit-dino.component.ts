@@ -3,7 +3,6 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DinoService } from 'src/app/shared/dino.service';
 import { Router } from '@angular/router';
 import { DinoResponse, Dinosaure } from 'src/app/shared/dinosaure.model';
-import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-edit-dino',
@@ -17,6 +16,7 @@ export class EditDinoComponent implements OnInit {
   successMsg: string;
   dino: Dinosaure;
   current_id: string;
+  colorList: string[];
 
   constructor(
     public dinoService: DinoService,
@@ -25,6 +25,8 @@ export class EditDinoComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.initColorList();
+
     this.current_id = localStorage.getItem(DinoService.ID_KEY);
     this.editForm = this.formBuilder.group({
       family: ['', Validators.required],
@@ -104,5 +106,15 @@ export class EditDinoComponent implements OnInit {
     this.submitted = false;
     this.serverError = '';
     this.editForm.reset();
+  }
+
+  initColorList() {
+    this.colorList = [];
+    this.colorList.push('');
+    this.colorList.push('#4A0A10');
+    this.colorList.push('#14283A');
+    this.colorList.push('#105FA4');
+    this.colorList.push('#833BC1');
+    this.colorList.push('#7A363D');
   }
 }

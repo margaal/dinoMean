@@ -9,11 +9,20 @@
           <div class="card my-3">
             <div class="card-body">
               <h5 class="card-title">
+                <span
+                  class="da-color-profile"
+                  style="background: {{ d?.color }};"
+                ></span>
                 <strong>{{ d.name }}</strong
-                >(<em *ngIf="d.dob">{{ year - d.dob }} ans</em>)
+                ><br /><em *ngIf="d.dob">({{ year - d.dob }} ans)</em>
               </h5>
               <h6 class="card-subtitle mb-2 text-muted">{{ d.family }}</h6>
-              <p class="card-text">{{ d.presentation }}</p>
+              <p
+                class="card-text"
+                *ngIf="d.presentation.length > 50; else NormalDesc"
+              >
+                {{ d.presentation | slice: 0:50 }}...
+              </p>
 
               <span
                 (click)="onRemoveFriend(d.name, d.id)"
@@ -30,6 +39,11 @@
               >
             </div>
           </div>
+          <ng-template #NormalDesc>
+            <p class="card-text">
+              {{ d.presentation }}
+            </p>
+          </ng-template>
         </div>
       </div>
     </div>
