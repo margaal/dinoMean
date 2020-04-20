@@ -19,13 +19,19 @@ export class SignUpComponent implements OnInit {
   submitted = false;
   serverError: string;
   successMsg: string;
+  isNewFriend: boolean;
 
   constructor(
     public dinoService: DinoService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
+    this.isNewFriend =
+      localStorage.getItem('new_friend') == 'true' ? true : false;
+    localStorage.removeItem('new_friend');
+
     this.registerForm = this.formBuilder.group(
       {
         family: ['', Validators.required],
@@ -54,8 +60,13 @@ export class SignUpComponent implements OnInit {
     this.dinoService.register(this.registerForm.value).subscribe(
       (res) => {
         const newDino = DinoResponse.convertToDinosaureModel(res);
-
+        // check if is new friend
+        if (this.isNewFriend) {
+          //add it
+          this.onAddFriend(newDino.id);
+        }
         this.successMsg = `<p>Compte crée avec succès! Votre identifiant est: <strong> ${newDino.name}</strong>!</p><p> Pour vous connecter, cliquez sur <em>"Connectez-vous"</em> en dessous du formulaire.</p>`;
+
         this.onReset();
       },
       (error) => {
@@ -66,12 +77,32 @@ export class SignUpComponent implements OnInit {
         }
       }
     );
+    if (this.isNewFriend) {
+      this.router.navigate([
+        'profile/' + localStorage.getItem(DinoService.ID_KEY),
+      ]);
+      return;
+    }
   }
 
   onReset() {
     this.submitted = false;
     this.serverError = '';
     this.registerForm.reset();
+  }
+
+  onAddFriend(friend_id: string): boolean {
+    var id = localStorage.getItem(DinoService.ID_KEY);
+    this.dinoService.addFriendDino(id, friend_id).subscribe(
+      (res) => {
+        DinoResponse.convertToDinosaureModel(res);
+        return true;
+      },
+      (error) => {
+        console.log('Erreur ' + error);
+      }
+    );
+    return false;
   }
 }
 

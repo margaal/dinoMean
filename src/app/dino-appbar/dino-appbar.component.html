@@ -20,9 +20,15 @@
       <a [routerLink]="'/edit'" class="btn btn-success my-4"
         >Modifier profile</a
       >
+      <span
+        (click)="onAddNewFriend()"
+        class="btn btn-warning mx-2"
+        >Ajouter un ami non inscrit</span
+      >
       <span (click)="onLogout()" class="btn btn-danger my-4 mx-2"
         >Se déconnecter</span
       >
+      
     </p>
     <div class="table-responsive">
       <table class="table" *ngIf="dino">
@@ -50,8 +56,10 @@
             <th scope="row">Nombre amis</th>
             <td>{{ dino?.friends?.length || 0 }}</td>
           </tr>
+         
         </tbody>
       </table>
+      
       <ng-template #nonRenseigne>
         <td><i>Non Renseigné</i></td>
       </ng-template>
